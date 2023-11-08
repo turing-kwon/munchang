@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>2023 비버챌린지 응시코드 조회 (문창고)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            width: 80%;
+        }
+        .box {
+            flex-basis: 45%;
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, button {
+            padding: 1em;
+            margin: 0.5em 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        h2, h3 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td, th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="box">
+        <h2>2023 비버챌린지 응시코드 조회 (문창고)</h2>
+
+        <form id="searchForm">
+            <input id="name" type="text" placeholder="이름" />
+            <input id="studentNumber" type="text" placeholder="학번" />
+            <button type="submit">조회</button>
+        </form>
+    </div>
+
+    <div class="box">
+        <h3>조회결과:</h3>
+        <table id="resultTable">
+            <tr>
+                <th>응시 코드 아이디</th>
+                <th>응시 코드 비밀번호</th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script>
+    var users = [
+        { name: '곽민혁', studentNumber: '1101', examId: 'mine8acid3ride7fact', examPw: '92591962' },
+        { name: '곽보관', studentNumber: '1102', examId: 'view4they7near7fine', examPw: '54227012' },
+        { name: '권용준', studentNumber: '1103', examId: 'tiny7meat4kind4quit', examPw: '99296516' },
+        { name: '권지민', studentNumber: '1104', examId: 'tube7fine8pick7chat', examPw: '42644539' },
+        { name: '김민근', studentNumber: '1105', examId: 'warm4deny2pure4taxi', examPw: '45268107' },
+        { name: '김현수', studentNumber: '1106', examId: 'time7chew4chat7with', examPw: '19537098' },
+        { name: '류성민', studentNumber: '1107', examId: 'duty7warm7city3warn', examPw: '25232312' },
+        { name: '박경완', studentNumber: '1108', examId: 'week7free8heat4knit', examPw: '94656430' },
+        { name: '박예성', studentNumber: '1109', examId: 'farm2neck3wine7hurt', examPw: '15463909' },
+        { name: '서재성', studentNumber: '1110', examId: 'bent8deaf8with4idea', examPw: '21544020' },
+        { name: '손수보', studentNumber: '1111', examId: 'drum3nice3bird2want', examPw: '98569180' },
+        { name: '안재경', studentNumber: '1112', examId: 'tiny8twin3exam2bird', examPw: '61126536' },
+        { name: '유지호', studentNumber: '1113', examId: 'rate4warm3beak8baby', examPw: '53123735' },
+        { name: '유태민', studentNumber: '1114', examId: 'earn8fact8cure4mark', examPw: '34087407' },
+        { name: '이건우', studentNumber: '1115', examId: 'rear3when7cent3twin', examPw: '33693914' },
+        { name: '이건호', studentNumber: '1116', examId: 'tend3very2chin7feed', examPw: '38799727' },
+        { name: '이재준', studentNumber: '1117', examId: 'next3rain2hurt3acid', examPw: '12307629' },
+        { name: '이해솔', studentNumber: '1118', examId: 'with7wait3pint2true', examPw: '93184309' },
+        { name: '장우진', studentNumber: '1119', examId: 'hire8pick8pink3find', examPw: '44094201' },
+        { name: '전승현', studentNumber: '1120', examId: 'away3earn3wave4pray', examPw: '85146860' },
+        { name: '전준현', studentNumber: '1121', examId: 'ride4unit7park3beef', examPw: '25922089' },
+        { name: '조정우', studentNumber: '1122', examId: 'trap8near8wine8harm', examPw: '32859193' },
+        { name: '김대겸', studentNumber: '1201', examId: 'fair2pint3rate7chip', examPw: '65351168' },
+        { name: '김도현', studentNumber: '1202', examId: 'rich8meat3five8farm', examPw: '25617205' },
+        { name: '김민섭', studentNumber: '1203', examId: 'item4city8harm2away', examPw: '40393588' },
+        { name: '김범준', studentNumber: '1204', examId: 'nice8path3nice2tune', examPw: '17921507' },
+        { name: '김윤호', studentNumber: '1205', examId: 'hurt2tent8curb8them', examPw: '16912216' },
+        { name: '김채호', studentNumber: '1207', examId: 'damp2hard8item7find', examPw: '46640784' },
+        { name: '박근우', studentNumber: '1208', examId: 'baby2wire3tire8need', examPw: '59151279' },
+        { name: '박명훈', studentNumber: '1209', examId: 'much2june4bank4many', examPw: '26491206' },
+        { name: '신유승', studentNumber: '1210', examId: 'rare3mere7tidy8exam', examPw: '71853044' },
+        { name: '오승현', studentNumber: '1211', examId: 'bath2deaf4tree3mine', examPw: '92724512' },
+        { name: '윤시온', studentNumber: '1212', examId: 'nice3hand4tune3acid', examPw: '12809956' },
+        { name: '윤현제', studentNumber: '1213', examId: 'take4quit8dead8dark', examPw: '20309650' },
+        { name: '이수용', studentNumber: '1214', examId: 'find4keen2rear8meet', examPw: '67725301' },
+        { name: '이재용', studentNumber: '1215', examId: 'area2pint8knee7fine', examPw: '54363292' },
+        { name: '임성훈', studentNumber: '1216', examId: 'fear7yard7trip8term', examPw: '78403305' },
+        { name: '장성빈', studentNumber: '1217', examId: 'idea7each4meat3keep', examPw: '63702614' },
+        { name: '조희성', studentNumber: '1218', examId: 'true3trap4pipe8care', examPw: '29722992' },
+        { name: '채상현', studentNumber: '1219', examId: 'yawn7make4hear4cure', examPw: '85401449' },
+        { name: '황현호', studentNumber: '1221', examId: 'bent8hire7feed4warn', examPw: '26686020' },
+        { name: '이승민', studentNumber: '1223', examId: 'twin2quit4mean4dark', examPw: '17665968' },
+        { name: '이재민', studentNumber: '1224', examId: 'make2hard4bath2pipe', examPw: '65944708' },
+        { name: '고재웅', studentNumber: '1301', examId: 'tree7tree7tidy7pity', examPw: '78657198' },
+        { name: '권우현', studentNumber: '1302', examId: 'mind8have3warm2fine', examPw: '50300657' },
+        { name: '김은호', studentNumber: '1303', examId: 'chip8rude7twin7nine', examPw: '80220768' },
+        { name: '김정훈', studentNumber: '1304', examId: 'ruin2yawn7park8main', examPw: '15470601' },
+        { name: '김현진', studentNumber: '1305', examId: 'team2exit4five7dirt', examPw: '93260216' },
+        { name: '노정웅', studentNumber: '1306', examId: 'chat7dare8free2fine', examPw: '49601706' },
+        { name: '류정우', studentNumber: '1307', examId: 'band2tape8near4wire', examPw: '11134912' },
+        { name: '박건우', studentNumber: '1308', examId: 'dare7bury3pack4inch', examPw: '28388485' },
+        { name: '박수영', studentNumber: '1309', examId: 'week8tidy7cake8hurt', examPw: '15829964' },
+        { name: '박승재', studentNumber: '1310', examId: 'beat2rain7five7chin', examPw: '57041960' },
+        { name: '박재원', studentNumber: '1311', examId: 'hear4team2week3tire', examPw: '65340839' },
+        { name: '박형준', studentNumber: '1312', examId: 'free4tiny8cent2wear', examPw: '45944641' },
+        { name: '서요섭', studentNumber: '1313', examId: 'aunt7have8diet8city', examPw: '73436920' },
+        { name: '신제민', studentNumber: '1314', examId: 'deep8fund3mean4even', examPw: '53884401' },
+        { name: '이강민', studentNumber: '1315', examId: 'deep4dirt2tune4chin', examPw: '56700183' },
+        { name: '임도경', studentNumber: '1316', examId: 'burn8name3make7when', examPw: '72741834' },
+        { name: '정한결', studentNumber: '1317', examId: 'wire2them3burn3that', examPw: '94836385' },
+        { name: '정현서', studentNumber: '1318', examId: 'data4much3bake8camp', examPw: '14001868' },
+        { name: '조용현', studentNumber: '1319', examId: 'date8tape7mean3tend', examPw: '58386911' },
+        { name: '최현호', studentNumber: '1320', examId: 'tire7pair8diet3debt', examPw: '60491890' },
+        { name: '하자운', studentNumber: '1321', examId: 'five7yard4than3tube', examPw: '12021405' },
+        { name: '황준하', studentNumber: '1322', examId: 'pink7week7mate2area', examPw: '18357674' },
+        { name: '강도연', studentNumber: '1401', examId: 'meat3chin2type2deep', examPw: '67225573' },
+        { name: '구교찬', studentNumber: '1402', examId: 'make2make4diet8band', examPw: '75741969' },
+        { name: '권용우', studentNumber: '1403', examId: 'then2away3much3pink', examPw: '53333988' },
+        { name: '권정후', studentNumber: '1404', examId: 'hard4dead8mine8bite', examPw: '74718733' },
+        { name: '김관우', studentNumber: '1405', examId: 'hair3tend3band8bake', examPw: '67789960' },
+        { name: '김도건', studentNumber: '1406', examId: 'yawn2turn2earn3care', examPw: '24712847' },
+        { name: '김원진', studentNumber: '1407', examId: 'card8knee8rear2ride', examPw: '88177333' },
+        { name: '박채빈', studentNumber: '1408', examId: 'rent7trap7knee2cent', examPw: '30562238' },
+        { name: '변은택', studentNumber: '1409', examId: 'date7wrap3inch4wine', examPw: '93409424' },
+        { name: '송준흠', studentNumber: '1410', examId: 'pair8item3tiny3hand', examPw: '13507599' },
+        { name: '안재형', studentNumber: '1411', examId: 'ruin3dark4take3mark', examPw: '33694811' },
+        { name: '안창민', studentNumber: '1412', examId: 'beer4kind3fire3pray', examPw: '82795562' },
+        { name: '엄상문', studentNumber: '1413', examId: 'knee7keep2even7chew', examPw: '49911259' },
+        { name: '유정우', studentNumber: '1414', examId: 'menu2peak3fame2fair', examPw: '94945477' },
+        { name: '이건후', studentNumber: '1415', examId: 'term2city4bake4hide', examPw: '80777650' },
+        { name: '이민혁', studentNumber: '1416', examId: 'knee8turn3vary4five', examPw: '75447709' },
+        { name: '이정민', studentNumber: '1417', examId: 'year2nice2wine2free', examPw: '79880411' },
+        { name: '장민제', studentNumber: '1418', examId: 'make7bird2warm7tiny', examPw: '60985165' },
+        { name: '전우진', studentNumber: '1419', examId: 'than3fear4damp3bank', examPw: '78623294' },
+        { name: '최재민', studentNumber: '1420', examId: 'peak2ride7pink2curb', examPw: '75515797' },
+        { name: '황민서', studentNumber: '1421', examId: 'mine7nice2cake2near', examPw: '30208882' },
+        { name: '황진하', studentNumber: '1422', examId: 'year2bank4area8bake', examPw: '67738786' },
+        { name: '권민재', studentNumber: '1501', examId: 'aunt7draw2damp4pack', examPw: '84863609' },
+        { name: '김남경', studentNumber: '1502', examId: 'pity3bite4fund4head', examPw: '51219325' },
+        { name: '김민결', studentNumber: '1503', examId: 'yawn2back7take4bear', examPw: '12898775' },
+        { name: '김성용', studentNumber: '1504', examId: 'hurt7they7park8fair', examPw: '11193600' },
+        { name: '김태욱', studentNumber: '1505', examId: 'face3wake4hair4take', examPw: '22861986' },
+        { name: '류준하', studentNumber: '1506', examId: 'exit2twin2chat2trip', examPw: '85169611' },
+        { name: '박민상', studentNumber: '1507', examId: 'tire7kind8with3rate', examPw: '45344323' },
+        { name: '신기혁', studentNumber: '1508', examId: 'card3wait3fame4acid', examPw: '13614247' },
+        { name: '신지환', studentNumber: '1509', examId: 'acid8when7drum4debt', examPw: '62126270' },
+        { name: '안윤찬', studentNumber: '1510', examId: 'dead7hard2hand4keep', examPw: '65094791' },
+        { name: '여성재', studentNumber: '1511', examId: 'deny4wait2pain2next', examPw: '60562842' },
+        { name: '이상민', studentNumber: '1512', examId: 'inch3tire7earn4year', examPw: '55154378' },
+        { name: '이수호', studentNumber: '1513', examId: 'wrap7menu3neck2mean', examPw: '46788068' },
+        { name: '이재희', studentNumber: '1514', examId: 'much2away3tend4nine', examPw: '78187779' },
+        { name: '임은후', studentNumber: '1515', examId: 'beak8exit2have4want', examPw: '11958608' },
+        { name: '정성범', studentNumber: '1516', examId: 'pity2army3wait3wife', examPw: '85461371' },
+        { name: '정용환', studentNumber: '1517', examId: 'jump8tank7bank4read', examPw: '52996487' },
+        { name: '정의준', studentNumber: '1518', examId: 'aunt3tune2find3rude', examPw: '96113809' },
+        { name: '정찬희', studentNumber: '1519', examId: 'view2mate2much2unit', examPw: '54778352' },
+        { name: '정호연', studentNumber: '1520', examId: 'main4year7curb4mere', examPw: '78665378' },
+        { name: '조준우', studentNumber: '1521', examId: 'feed4tank4deny4cure', examPw: '85152072' },
+        { name: '황동섭', studentNumber: '1522', examId: 'care2meet2care3exit', examPw: '74069719' },
+        { name: '구교영', studentNumber: '1601', examId: 'turn8peak3knit8beer', examPw: '37843356' },
+        { name: '김도윤', studentNumber: '1602', examId: 'mate7tiny3tend3warn', examPw: '25853839' },
+        { name: '김윤서', studentNumber: '1603', examId: 'much7mere2hurt8tent', examPw: '70242739' },
+        { name: '김준동', studentNumber: '1604', examId: 'tune2hunt8pipe3mate', examPw: '40582459' },
+        { name: '김형욱', studentNumber: '1605', examId: 'rent3neat7band8beer', examPw: '36936364' },
+        { name: '배준석', studentNumber: '1607', examId: 'quit7read3peak2keen', examPw: '55105845' },
+        { name: '신영석', studentNumber: '1608', examId: 'tape8warm7path2mark', examPw: '31652638' },
+        { name: '윤동환', studentNumber: '1609', examId: 'data8hurt7tent7nine', examPw: '79943057' },
+        { name: '이서준', studentNumber: '1610', examId: 'dark8type8dear8taxi', examPw: '47704298' },
+        { name: '이재훈', studentNumber: '1611', examId: 'rent8trip4meat8bird', examPw: '67400948' },
+        { name: '이제민', studentNumber: '1612', examId: 'menu7week3warn8nine', examPw: '81388922' },
+        { name: '이주헌', studentNumber: '1613', examId: 'peak8wire7when7each', examPw: '41333146' },
+        { name: '장덕원', studentNumber: '1614', examId: 'city8tend8tiny8deep', examPw: '72957175' },
+        { name: '전찬영', studentNumber: '1615', examId: 'baby8jump3curb3them', examPw: '12461974' },
+        { name: '정예준', studentNumber: '1616', examId: 'fire3knee4city4cure', examPw: '85317932' },
+        { name: '조하진', studentNumber: '1617', examId: 'wrap7rear2peak2tank', examPw: '27433919' },
+        { name: '차현준', studentNumber: '1618', examId: 'burn8bite2make4tube', examPw: '13072750' },
+        { name: '최원석', studentNumber: '1619', examId: 'inch4hand8card3quit', examPw: '97044576' },
+        { name: '추원기', studentNumber: '1620', examId: 'beef8bank4mean8pure', examPw: '94775146' },
+        { name: '한우영', studentNumber: '1621', examId: 'data8quit2mate2ride', examPw: '87487501' },
+        { name: '황정욱', studentNumber: '1622', examId: 'back3pray3cure8time', examPw: '53832571' },
+        { name: '강건', studentNumber: '2101', examId: 'army7army8diet2rich', examPw: '80072039' },
+        { name: '고민수', studentNumber: '2102', examId: 'bank2time7head4wear', examPw: '48889659' },
+        { name: '권민재', studentNumber: '2103', examId: 'fact3kick4chip2rice', examPw: '72419063' },
+        { name: '김민섭', studentNumber: '2104', examId: 'year4pack3twin7bank', examPw: '82605394' },
+        { name: '김민준', studentNumber: '2105', examId: 'here3type4bake7beak', examPw: '96201990' },
+        { name: '김성일', studentNumber: '2106', examId: 'bath7mean7draw4band', examPw: '72402209' },
+        { name: '박용준', studentNumber: '2107', examId: 'keep2beat4hair4ever', examPw: '60814327' },
+        { name: '박정민', studentNumber: '2108', examId: 'rate3find4hire2bake', examPw: '62678483' },
+        { name: '배준식', studentNumber: '2109', examId: 'wide3baby3find4vary', examPw: '64696851' },
+        { name: '신동현', studentNumber: '2110', examId: 'pack2turn4near7cure', examPw: '87390303' },
+        { name: '신민제', studentNumber: '2111', examId: 'than7rank2pint3knee', examPw: '86376846' },
+        { name: '유승민', studentNumber: '2112', examId: 'farm3pint4wrap3next', examPw: '62212119' },
+        { name: '윤찬근', studentNumber: '2113', examId: 'head4fine7hire7rear', examPw: '62430718' },
+        { name: '이재빈', studentNumber: '2114', examId: 'much3that4pain8hide', examPw: '84312234' },
+        { name: '이학민', studentNumber: '2115', examId: 'what8next4beer3peak', examPw: '37955945' },
+        { name: '임준성', studentNumber: '2116', examId: 'term4rice3wear7pipe', examPw: '71692645' },
+        { name: '조정범', studentNumber: '2117', examId: 'main7rare7curb7june', examPw: '51466803' },
+        { name: '천재원', studentNumber: '2118', examId: 'fire4thin2vary2city', examPw: '68471142' },
+        { name: '최원준', studentNumber: '2119', examId: 'type8item2path7fire', examPw: '61980003' },
+        { name: '최재우', studentNumber: '2120', examId: 'date4chip7bank8rain', examPw: '26189966' },
+        { name: '최재훈', studentNumber: '2121', examId: 'hard8yawn2pure4nice', examPw: '70630358' },
+        { name: '권우빈', studentNumber: '2201', examId: 'bite4heat3chat4tend', examPw: '59452852' },
+        { name: '김동원', studentNumber: '2202', examId: 'tent2trip3debt2pity', examPw: '73464542' },
+        { name: '김세현', studentNumber: '2203', examId: 'bear4deaf4hate2diet', examPw: '81458898' },
+        { name: '김수영', studentNumber: '2204', examId: 'read8navy7back2rate', examPw: '42470032' },
+        { name: '김재민', studentNumber: '2205', examId: 'beat4back2ruin2quit', examPw: '96580339' },
+        { name: '김태근', studentNumber: '2206', examId: 'fund7rich8that7head', examPw: '53732194' },
+        { name: '박기덕', studentNumber: '2207', examId: 'keep3here7aunt8than', examPw: '91610269' },
+        { name: '박상훈', studentNumber: '2208', examId: 'city8exit8tree3exam', examPw: '67838704' },
+        { name: '박은수', studentNumber: '2209', examId: 'bird2term4cake3rice', examPw: '73580152' },
+        { name: '박호연', studentNumber: '2210', examId: 'date2beat8race4thin', examPw: '36791260' },
+        { name: '변경환', studentNumber: '2211', examId: 'main4tube3wife7bear', examPw: '14711484' },
+        { name: '신영준', studentNumber: '2212', examId: 'what8rich8wave2when', examPw: '69205426' },
+        { name: '심천수', studentNumber: '2213', examId: 'they3trap2hide4kick', examPw: '72831095' },
+        { name: '이예찬', studentNumber: '2214', examId: 'tend3pair2main8meet', examPw: '67013406' },
+        { name: '이창민', studentNumber: '2216', examId: 'part4chat4cake8hurt', examPw: '15824306' },
+        { name: '임규완', studentNumber: '2217', examId: 'city3peak4bury4five', examPw: '74570000' },
+        { name: '한민준', studentNumber: '2218', examId: 'tidy7many7ruin7wave', examPw: '36051768' },
+        { name: '황도윤', studentNumber: '2219', examId: 'than7free4hate3mean', examPw: '47599775' },
+        { name: '노상진', studentNumber: '2221', examId: 'ever2park2wrap3tube', examPw: '12704933' },
+        { name: '김건', studentNumber: '2301', examId: 'tidy3aunt7ruin2wait', examPw: '84691282' },
+        { name: '김기언', studentNumber: '2302', examId: 'dare3weak8bike2weak', examPw: '38203954' },
+        { name: '김수경', studentNumber: '2303', examId: 'near3tend7fine2name', examPw: '15321043' },
+        { name: '김진혁', studentNumber: '2304', examId: 'dark4each8they4hair', examPw: '97422768' },
+        { name: '박준우', studentNumber: '2305', examId: 'hand3chew7type8card', examPw: '22643796' },
+        { name: '박준원', studentNumber: '2306', examId: 'aunt3tent4when2even', examPw: '51441442' },
+        { name: '박지성', studentNumber: '2307', examId: 'earn3thin4bend7acid', examPw: '14633811' },
+        { name: '신동준', studentNumber: '2308', examId: 'mere3rare8tune2rent', examPw: '66177253' },
+        { name: '안철홍', studentNumber: '2309', examId: 'fear2true7feed4cent', examPw: '33557463' },
+        { name: '온재민', studentNumber: '2310', examId: 'beat7bath7wire7yard', examPw: '35577818' },
+        { name: '이상윤', studentNumber: '2311', examId: 'pink4pray8jump4they', examPw: '29314226' },
+        { name: '이승준', studentNumber: '2312', examId: 'name3yeah2neck2quit', examPw: '96343700' },
+        { name: '이영인', studentNumber: '2313', examId: 'exam8draw8chin2rate', examPw: '42779073' },
+        { name: '이재현', studentNumber: '2314', examId: 'five2chip3pair8tube', examPw: '16208357' },
+        { name: '이지환', studentNumber: '2315', examId: 'weak3warm3rude7rank', examPw: '32986938' },
+        { name: '정찬', studentNumber: '2316', examId: 'exam4wife4unit8pick', examPw: '50607149' },
+        { name: '채지훈', studentNumber: '2317', examId: 'here2even4keep8wire', examPw: '14080790' },
+        { name: '최정연', studentNumber: '2318', examId: 'rear8beak2wait2pure', examPw: '89160706' },
+        { name: '허주혁', studentNumber: '2319', examId: 'dare3neat7date8bird', examPw: '66930174' },
+        { name: '홍재범', studentNumber: '2320', examId: 'kind2name7take7kind', examPw: '81814458' },
+        { name: '임형준', studentNumber: '2321', examId: 'bent2beat4pain4mere', examPw: '79174091' },
+        { name: '강병찬', studentNumber: '2401', examId: 'pray3deep2bake8fund', examPw: '91975353' },
+        { name: '고동현', studentNumber: '2402', examId: 'bank2rare2beer4face', examPw: '83011356' },
+        { name: '권승재', studentNumber: '2403', examId: 'pity7damp8jump8chat', examPw: '43983424' },
+        { name: '김남진', studentNumber: '2404', examId: 'bear2type4mine8pick', examPw: '50105623' },
+        { name: '김세현', studentNumber: '2405', examId: 'chew3mark3bent3week', examPw: '54363952' },
+        { name: '김종서', studentNumber: '2406', examId: 'nice4rank2find8hard', examPw: '24498099' },
+        { name: '박성헌', studentNumber: '2407', examId: 'earn7exit4team8type', examPw: '46068585' },
+        { name: '박지성', studentNumber: '2408', examId: 'very4they3need4knit', examPw: '94910491' },
+        { name: '서범준', studentNumber: '2409', examId: 'next3dear3hunt3beef', examPw: '25768370' },
+        { name: '손우현', studentNumber: '2410', examId: 'fine8cake3exam3tend', examPw: '58176370' },
+        { name: '안재현', studentNumber: '2411', examId: 'meat4vary4dead2knit', examPw: '91527459' },
+        { name: '이동헌', studentNumber: '2412', examId: 'trap2tank3peak4burn', examPw: '79548250' },
+        { name: '이원준', studentNumber: '2413', examId: 'then8rent2june8earn', examPw: '49481438' },
+        { name: '이주원', studentNumber: '2414', examId: 'neck8pack4diet7exit', examPw: '77185924' },
+        { name: '이준호', studentNumber: '2415', examId: 'with2wrap2tire2idea', examPw: '18483295' },
+        { name: '장서진', studentNumber: '2416', examId: 'wake8five7rich2duty', examPw: '28868882' },
+        { name: '전철수', studentNumber: '2417', examId: 'turn2have7deaf7meet', examPw: '65254561' },
+        { name: '진준엽', studentNumber: '2418', examId: 'tend7beer7tiny2when', examPw: '68785082' },
+        { name: '최진원', studentNumber: '2419', examId: 'curb7hair2kick7pick', examPw: '48506405' },
+        { name: '한윤호', studentNumber: '2420', examId: 'earn8pain2tend2inch', examPw: '25797199' },
+        { name: '박민혁', studentNumber: '2421', examId: 'jump7hate8thin2kind', examPw: '77734222' },
+        { name: '강민서', studentNumber: '2501', examId: 'kick2type7tape8hurt', examPw: '16887649' },
+        { name: '고은찬', studentNumber: '2502', examId: 'pity8dump8very7wear', examPw: '51368465' },
+        { name: '구교승', studentNumber: '2503', examId: 'tiny7beak7exam8cure', examPw: '88459638' },
+        { name: '권준민', studentNumber: '2504', examId: 'true7wine2than3wife', examPw: '85024467' },
+        { name: '김환희', studentNumber: '2505', examId: 'quit2away2type4exit', examPw: '76642033' },
+        { name: '류경호', studentNumber: '2506', examId: 'face7feed3cure8pipe', examPw: '71916884' },
+        { name: '안상훈', studentNumber: '2507', examId: 'have4dump7mate8many', examPw: '30131139' },
+        { name: '안준민', studentNumber: '2508', examId: 'need3have2idea7kind', examPw: '81753215' },
+        { name: '안형준', studentNumber: '2509', examId: 'when4thin8dirt2chew', examPw: '45419420' },
+        { name: '이명학', studentNumber: '2510', examId: 'mere2fine4yawn4mine', examPw: '94696269' },
+        { name: '인원종', studentNumber: '2511', examId: 'duty8even7bake7kind', examPw: '81172113' },
+        { name: '임승민', studentNumber: '2512', examId: 'burn4rent8pink2earn', examPw: '43571353' },
+        { name: '전동진', studentNumber: '2513', examId: 'bank2fear2exit4bite', examPw: '71768694' },
+        { name: '전한성', studentNumber: '2514', examId: 'tidy7date2text2pure', examPw: '89369938' },
+        { name: '정해영', studentNumber: '2515', examId: 'wake2beat7firm8hand', examPw: '17115743' },
+        { name: '조주경', studentNumber: '2516', examId: 'keep2kind8rude7dark', examPw: '19469430' },
+        { name: '하승호', studentNumber: '2517', examId: 'near4wire3dear4free', examPw: '81730798' },
+        { name: '황세찬', studentNumber: '2518', examId: 'dear2pain3unit3path', examPw: '31600805' },
+        { name: '황용하', studentNumber: '2519', examId: 'bite4team8acid3knee', examPw: '85176948' },
+        { name: '안종욱', studentNumber: '2520', examId: 'bank3curb8yard4main', examPw: '13060138' },
+        { name: '이우혁', studentNumber: '2521', examId: 'what3bite8term4hide', examPw: '81735497' },
+
+    ];
+
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var name = document.getElementById('name').value;
+        var studentNumber = document.getElementById('studentNumber').value;
+        var user = users.find(function(user) {
+            return user.name == name && user.studentNumber == studentNumber;
+        });
+        var resultTable = document.getElementById('resultTable');
+        while (resultTable.rows.length > 1) {
+            resultTable.deleteRow(1);
+        }
+        if (user) {
+            var row = resultTable.insertRow(-1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            cell1.innerHTML = user.examId;
+            cell2.innerHTML = user.examPw;
+        } else {
+            var row = resultTable.insertRow(-1);
+            var cell1 = row.insertCell(0);
+            cell1.colSpan = 2;
+            cell1.innerHTML = '일치하는 사용자를 찾을 수 없습니다.';
+        }
+    });
+</script>
+
+</body>
+</html>
